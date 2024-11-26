@@ -14,9 +14,9 @@ app.use(express.json());
 
 app.use('/products',productRoutes );
 app.use('/orders', orderRoutes);
-// app.use("/", (req, res) => {
-//   res.send("Welcome to the Home Page");
-// });
+app.use("/", (req, res) => {
+  res.send("Welcome to the Home Page Backend Testing");
+});
 
 app.listen(port, async () => {
   try {
