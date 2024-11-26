@@ -1,14 +1,15 @@
-import './App.css'
+import { BrowserRouter } from "react-router-dom";
+import "./App.css";
+import AllRoutes from "./routes/AllRoutes";
 
 function App() {
-
   return (
     <>
-        <h1>
-          Welcome to the Vegetable-Fruit Order Platform!
-        </h1>
+      <BrowserRouter>
+        <AllRoutes />
+      </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

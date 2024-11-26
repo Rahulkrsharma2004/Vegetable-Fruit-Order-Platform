@@ -1,0 +1,43 @@
+.product-catalogue {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .product-card, .order-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    width: calc(33.333% - 20px);
+    box-sizing: border-box;
+  }
+  
+  .order-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 0 auto 20px;
+  }
+  
+  .order-form input, .order-form button {
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .order-form button {
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .admin-dashboard {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .order-management, .inventory-management {
+    margin-bottom: 20px;
+  }
+  
