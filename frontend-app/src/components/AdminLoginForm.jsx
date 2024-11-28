@@ -30,6 +30,7 @@ const AdminLoginForm = () => {
           <input
             type="email"
             value={email}
+            placeholder='admin@gmail.com'
             onChange={(e) => setEmail(e.target.value)}
             required
             className="w-full px-3 py-2 border rounded"
@@ -40,6 +41,7 @@ const AdminLoginForm = () => {
           <input
             type="password"
             value={password}
+            placeholder='Admin123'
             onChange={(e) => setPassword(e.target.value)}
             required
             className="w-full px-3 py-2 border rounded"
