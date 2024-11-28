@@ -10,7 +10,11 @@ const router = require('./routes/adminRoutes');
 const port = process.env.PORT || 3000;
 const app = express();
 
-app.use(cors())
+app.use(cors({
+  origin: ['http://localhost:5173','https://veg-fruit-order-platform.vercel.app','https://veg-order-platform.vercel.app' ],
+  credentials: true,
+}));
+
 app.use(express.json());
 
 app.use('/products',productRoutes );
