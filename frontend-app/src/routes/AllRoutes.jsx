@@ -3,8 +3,9 @@ import React from "react";
 import {  Route, Routes } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import OrderPage from "../pages/OrderPage";
-import AdminPage from "../pages/AdminPage";
 import Navbar from "../components/Navbar";
+import AdminLoginForm from "../components/AdminLoginForm";
+import AdminDashboard from "../components/AdminDashboard";
 
 function AllRoutes() {
   return (
@@ -13,7 +14,8 @@ function AllRoutes() {
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/order" element={<OrderPage />}></Route>
-          <Route path="/admin" element={<AdminPage />}></Route>
+          <Route path="/login" element={<AdminLoginForm />}></Route>
+          <Route path="/admin" element={<AdminDashboard />}></Route>
         </Routes>
       </div>
   );

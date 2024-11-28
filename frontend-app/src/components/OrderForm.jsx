@@ -30,94 +30,96 @@ function OrderForm() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10">
+    <div className="bg-gradient-to-r from-green-400 via-yellow-300 to-red-400 min-h-screen flex items-center justify-center py-10">
       <ToastContainer />
-      <form className="order-form bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
-        <h2 className="text-2xl font-bold mb-6 text-center">Place Your Order</h2>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="product">
-            Product
-          </label>
-          <input
-            type="text"
-            name="product"
-            id="product"
-            placeholder="Product"
-            value={order.product}
-            onChange={handleChange}
-            required
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="quantity">
-            Quantity
-          </label>
-          <input
-            type="number"
-            name="quantity"
-            id="quantity"
-            placeholder="Quantity"
-            value={order.quantity}
-            onChange={handleChange}
-            required
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="buyerName">
-            Your Name
-          </label>
-          <input
-            type="text"
-            name="buyerName"
-            id="buyerName"
-            placeholder="Your Name"
-            value={order.buyerName}
-            onChange={handleChange}
-            required
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="contactInfo">
-            Contact Info
-          </label>
-          <input
-            type="text"
-            name="contactInfo"
-            id="contactInfo"
-            placeholder="Contact Info"
-            value={order.contactInfo}
-            onChange={handleChange}
-            required
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="deliveryAddress">
-            Delivery Address
-          </label>
-          <input
-            type="text"
-            name="deliveryAddress"
-            id="deliveryAddress"
-            placeholder="Delivery Address"
-            value={order.deliveryAddress}
-            onChange={handleChange}
-            required
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="flex items-center justify-between">
-          <button
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Place Order
-          </button>
-        </div>
-      </form>
+      <div className="w-full max-w-lg bg-white shadow-lg rounded-lg p-6 md:p-8">
+        <h2 className="text-3xl font-bold text-center text-green-700 mb-6">Place Your Order</h2>
+        <form className="space-y-6" onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="product">
+              Product (e.g., Apple, Carrot, Banana)
+            </label>
+            <input
+              type="text"
+              name="product"
+              id="product"
+              placeholder="Enter product"
+              value={order.product}
+              onChange={handleChange}
+              required
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="quantity">
+              Quantity
+            </label>
+            <input
+              type="number"
+              name="quantity"
+              id="quantity"
+              placeholder="Enter quantity"
+              value={order.quantity}
+              onChange={handleChange}
+              required
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="buyerName">
+              Your Name
+            </label>
+            <input
+              type="text"
+              name="buyerName"
+              id="buyerName"
+              placeholder="Enter your name"
+              value={order.buyerName}
+              onChange={handleChange}
+              required
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="contactInfo">
+              Contact Info (Phone/Email)
+            </label>
+            <input
+              type="text"
+              name="contactInfo"
+              id="contactInfo"
+              placeholder="Enter contact info"
+              value={order.contactInfo}
+              onChange={handleChange}
+              required
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          <div className="mb-6">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="deliveryAddress">
+              Delivery Address
+            </label>
+            <input
+              type="text"
+              name="deliveryAddress"
+              id="deliveryAddress"
+              placeholder="Enter delivery address"
+              value={order.deliveryAddress}
+              onChange={handleChange}
+              required
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          <div className="flex items-center justify-center">
+            <button
+              type="submit"
+              className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full focus:outline-none focus:shadow-outline w-full"
+            >
+              Place Order
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

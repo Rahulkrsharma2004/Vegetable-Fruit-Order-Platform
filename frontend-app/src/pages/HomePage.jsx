@@ -3,7 +3,7 @@ import ProductCatalog from '../components/ProductCatalog';
 
 function HomePage() {
   return (
-    <div className="home-page">
+    <div>
       {/* <h1>Product Catalogue</h1> */}
       <ProductCatalog />
     </div>
