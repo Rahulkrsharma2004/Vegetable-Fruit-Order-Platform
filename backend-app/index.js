@@ -4,6 +4,7 @@ const express = require("express");
 const connection = require("./database");
 const productRoutes = require('./routes/productRoutes');
 const orderRoutes = require('./routes/orderRoutes');
+const router = require('./routes/adminRoutes');
 
 
 const port = process.env.PORT || 3000;
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use('/products',productRoutes );
 app.use('/orders', orderRoutes);
+app.use('/auth', router);
 app.use("/", (req, res) => {
   res.send("Welcome to the Home Page Backend Testing");
 });
