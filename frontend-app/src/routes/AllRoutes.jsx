@@ -7,6 +7,7 @@ import AdminDashboard from "../components/AdminDashboard";
 import ProductCatalog from "../components/ProductCatalog";
 import AdminLogin from "../components/AdminLogin";
 import AdminRegister from "../components/AdminRegister";
+import CartPage from "../pages/CartPage";
 
 function AllRoutes() {
   return (
@@ -14,6 +15,7 @@ function AllRoutes() {
         <Navbar />
         <Routes>
           <Route path="/" element={<ProductCatalog />}></Route>
+          <Route path="/cart/:productId" element={<CartPage/>}></Route>
           <Route path="/admin-login" element={<AdminLogin />}></Route>
           <Route path="/admin-register" element={<AdminRegister />}></Route>
           <Route path="/order" element={<OrderPage />}></Route>

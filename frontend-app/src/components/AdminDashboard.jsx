@@ -10,7 +10,9 @@ function AdminDashboard() {
   const [newProduct, setNewProduct] = useState({
     name: "",
     price: "",
+    stock:"",
     description: "",
+
   });
   const [editingProduct, setEditingProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,6 +38,7 @@ function AdminDashboard() {
       .get("https://veg-order-platform.vercel.app/products")
       .then((response) => {
         setProducts(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.error("There was an error fetching the products!", error);
@@ -64,7 +67,7 @@ function AdminDashboard() {
   };
 
   const handleCreateProduct = () => {
-    if (!newProduct.name || !newProduct.price || !newProduct.description) {
+    if (!newProduct.name || !newProduct.price || !newProduct.stock || !newProduct.description) {
       toast.error("Please fill in all fields");
       return;
     }
@@ -74,7 +77,7 @@ function AdminDashboard() {
       .then((response) => {
         setProducts([...products, response.data]);
         toast.success("Product created successfully!");
-        setNewProduct({ name: "", price: "", description: "" });
+        setNewProduct({ name: "", price: "", stock: "" , description: "" });
       })
       .catch((error) => {
         console.error("There was an error creating the product!", error);
@@ -91,6 +94,7 @@ function AdminDashboard() {
     if (
       !editingProduct.name ||
       !editingProduct.price ||
+      !editingProduct.stock ||
       !editingProduct.description
     ) {
       toast.error("Please fill in all fields");
@@ -214,6 +218,14 @@ function AdminDashboard() {
             placeholder="Product Price"
             className="block mb-2 p-2 border rounded w-full"
           />
+          <input
+            type="number"
+            name="stock"
+            value={newProduct.stock}
+            onChange={handleProductChange}
+            placeholder="Product quantity"
+            className="block mb-2 p-2 border rounded w-full"
+          />
           {/* <input
             type="text"
             name="imageUrl"
@@ -264,6 +276,16 @@ function AdminDashboard() {
             className="block mb-2 p-2 border rounded w-full"
           />
           <input
+            type="number"
+            name="stock"
+            value={editingProduct?.stock || ""}
+            onChange={(e) =>
+              setEditingProduct({ ...editingProduct, stock: e.target.value })
+            }
+            placeholder="Product quantity"
+            className="block mb-2 p-2 border rounded w-full"
+          />
+          <input
             type="text"
             name="description"
             value={editingProduct?.description || ""}
@@ -303,6 +325,9 @@ function AdminDashboard() {
               </h3>
               <p className="mb-1">
                 <span className="font-semibold">Price:</span> ${product.price}
+              </p>
+              <p className="mb-1">
+                <span className="font-semibold">Quantity:</span> {product.stock}
               </p>
               <p className="mb-1">
                 <span className="font-semibold">Description:</span>{" "}
