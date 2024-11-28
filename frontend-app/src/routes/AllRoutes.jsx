@@ -1,20 +1,22 @@
 // App.js
 import React from "react";
 import {  Route, Routes } from "react-router-dom";
-import HomePage from "../pages/HomePage";
 import OrderPage from "../pages/OrderPage";
 import Navbar from "../components/Navbar";
-import AdminLoginForm from "../components/AdminLoginForm";
 import AdminDashboard from "../components/AdminDashboard";
+import ProductCatalog from "../components/ProductCatalog";
+import AdminLogin from "../components/AdminLogin";
+import AdminRegister from "../components/AdminRegister";
 
 function AllRoutes() {
   return (
       <div className="App">
         <Navbar />
         <Routes>
-          <Route path="/" element={<HomePage />}></Route>
+          <Route path="/" element={<ProductCatalog />}></Route>
+          <Route path="/admin-login" element={<AdminLogin />}></Route>
+          <Route path="/admin-register" element={<AdminRegister />}></Route>
           <Route path="/order" element={<OrderPage />}></Route>
-          <Route path="/login" element={<AdminLoginForm />}></Route>
           <Route path="/admin" element={<AdminDashboard />}></Route>
         </Routes>
       </div>

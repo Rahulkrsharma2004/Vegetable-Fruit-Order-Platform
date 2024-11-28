@@ -1,13 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Modal from "../pages/Modal";
 
 function AdminDashboard() {
   const [orders, setOrders] = useState([]);
   const [products, setProducts] = useState([]);
-  const [newProduct, setNewProduct] = useState({ name: '', price: '', description: '' });
+  const [newProduct, setNewProduct] = useState({
+    name: "",
+    price: "",
+    description: "",
+  });
   const [editingProduct, setEditingProduct] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     fetchOrders();
@@ -15,34 +21,41 @@ function AdminDashboard() {
   }, []);
 
   const fetchOrders = () => {
-    axios.get('https://veg-order-platform.vercel.app/orders')
-      .then(response => {
+    axios
+      .get("https://veg-order-platform.vercel.app/orders")
+      .then((response) => {
         setOrders(response.data);
       })
-      .catch(error => {
-        console.error('There was an error fetching the orders!', error);
+      .catch((error) => {
+        console.error("There was an error fetching the orders!", error);
       });
   };
 
   const fetchProducts = () => {
-    axios.get('https://veg-order-platform.vercel.app/products')
-      .then(response => {
+    axios
+      .get("https://veg-order-platform.vercel.app/products")
+      .then((response) => {
         setProducts(response.data);
       })
-      .catch(error => {
-        console.error('There was an error fetching the products!', error);
+      .catch((error) => {
+        console.error("There was an error fetching the products!", error);
       });
   };
 
   const handleStatusChange = (id, status) => {
-    axios.put(`https://veg-order-platform.vercel.app/orders/status/${id}`, { status })
-      .then(response => {
-        setOrders(orders.map(order => order._id === id ? response.data : order));
-        toast.success('Order status updated successfully!');
+    axios
+      .put(`https://veg-order-platform.vercel.app/orders/status/${id}`, {
+        status,
       })
-      .catch(error => {
-        console.error('There was an error updating the order status!', error);
-        toast.error('Failed to update order status!');
+      .then((response) => {
+        setOrders(
+          orders.map((order) => (order._id === id ? response.data : order))
+        );
+        toast.success("Order status updated successfully!");
+      })
+      .catch((error) => {
+        console.error("There was an error updating the order status!", error);
+        toast.error("Failed to update order status!");
       });
   };
 
@@ -51,57 +64,93 @@ function AdminDashboard() {
   };
 
   const handleCreateProduct = () => {
-    axios.post('https://veg-order-platform.vercel.app/products/post', newProduct)
-      .then(response => {
+    if (!newProduct.name || !newProduct.price || !newProduct.description) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+
+    axios
+      .post("https://veg-order-platform.vercel.app/products/post", newProduct)
+      .then((response) => {
         setProducts([...products, response.data]);
-        toast.success('Product created successfully!');
-        setNewProduct({ name: '', price: '' , description: '' });
+        toast.success("Product created successfully!");
+        setNewProduct({ name: "", price: "", description: "" });
       })
-      .catch(error => {
-        console.error('There was an error creating the product!', error);
-        toast.error('Failed to create product!');
+      .catch((error) => {
+        console.error("There was an error creating the product!", error);
+        toast.error("Failed to create product!");
       });
   };
 
   const handleEditProduct = (product) => {
     setEditingProduct(product);
+    setIsModalOpen(true);
   };
 
   const handleUpdateProduct = () => {
-    axios.put(`https://veg-order-platform.vercel.app/products/${editingProduct._id}`, editingProduct)
-      .then(response => {
-        setProducts(products.map(product => product._id === editingProduct._id ? response.data : product));
-        toast.success('Product updated successfully!');
-        setEditingProduct(null);
+    if (
+      !editingProduct.name ||
+      !editingProduct.price ||
+      !editingProduct.description
+    ) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+    console.log(editingProduct._id);
+
+    axios
+      .put(
+        `https://veg-order-platform.vercel.app/products/${editingProduct._id}`,
+        {},
+        editingProduct
+      )
+      .then((response) => {
+        setProducts(
+          products.map((product) =>
+            product._id === editingProduct._id ? response.data : product
+          )
+        );
+        toast.success("Product updated successfully!");
+        setEditingProduct( products.map((product) =>
+          product._id === editingProduct._id ? response.data : product
+        ));
+        setIsModalOpen(false);
       })
-      .catch(error => {
-        console.error('There was an error updating the product!', error);
-        toast.error('Failed to update product!');
+
+      .catch((error) => {
+        console.error("There was an error updating the product!", error);
+        toast.error("Failed to update product!");
       });
   };
 
   const handleDeleteProduct = (id) => {
-    axios.delete(`https://veg-order-platform.vercel.app/products/delete${id}`)
+    axios
+      .delete(`https://veg-order-platform.vercel.app/products/delete/${id}`)
       .then(() => {
-        setProducts(products.filter(product => product._id !== id));
-        toast.success('Product deleted successfully!');
+        setProducts(products.filter((product) => product._id !== id));
+        toast.success("Product deleted successfully!");
       })
-      .catch(error => {
-        console.error('There was an error deleting the product!', error);
-        toast.error('Failed to delete product!');
+      .catch((error) => {
+        console.error("There was an error deleting the product!", error);
+        toast.error("Failed to delete product!");
       });
   };
 
   return (
     <div className="admin-dashboard p-6 bg-green-50 min-h-screen">
       <ToastContainer />
-      
+
       {/* Order Management */}
       <div className="order-management mb-8">
-        <h2 className="text-3xl font-bold mb-6 text-green-700 text-center">Order Management</h2>
+        <h2 className="text-3xl font-bold mb-6 text-green-700 text-center">
+          Order Management
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {orders.map(order => (
-            <div key={order._id} className="order-card bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+          {orders.map((order) => (
+            <div
+              key={order._id}
+              className="order-card bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
+            >
               <div className="mb-4">
                 {/* <img
                   src={order.product.imageUrl || 'https://via.placeholder.com/150'}
@@ -109,11 +158,21 @@ function AdminDashboard() {
                   className="w-full h-40 object-cover rounded-lg"
                 /> */}
               </div>
-              <h3 className="font-semibold text-lg mb-2 text-green-600">Order ID: {order._id}</h3>
+              <h3 className="font-semibold text-lg mb-2 text-green-600">
+                Order ID: {order._id}
+              </h3>
               {/* <p className="mb-1"><span className="font-semibold">Product:</span> {order.name}</p> */}
-              <p className="mb-1"><span className="font-semibold">Quantity:</span> {order.quantity}</p>
-              <p className="mb-1"><span className="font-semibold">Status:</span> {order.status}</p>
-              <p className="mb-1"><span className="font-semibold">Delivery Address:</span> {order.deliveryAddress}</p>
+              <p className="mb-1">
+                <span className="font-semibold">Quantity:</span>{" "}
+                {order.quantity}
+              </p>
+              <p className="mb-1">
+                <span className="font-semibold">Status:</span> {order.status}
+              </p>
+              <p className="mb-1">
+                <span className="font-semibold">Delivery Address:</span>{" "}
+                {order.deliveryAddress}
+              </p>
               <select
                 className="mt-2 p-2 border rounded w-full bg-green-50"
                 value={order.status}
@@ -130,11 +189,15 @@ function AdminDashboard() {
 
       {/* Inventory Management */}
       <div className="inventory-management">
-        <h2 className="text-3xl font-bold mb-6 text-green-700 text-center">Inventory Management</h2>
+        <h2 className="text-3xl font-bold mb-6 text-green-700 text-center">
+          Inventory Management
+        </h2>
 
         {/* Create Product Form */}
         <div className="create-product mb-8">
-          <h3 className="text-2xl font-bold mb-4 text-green-600">Create Product</h3>
+          <h3 className="text-2xl font-bold mb-4 text-green-600">
+            Create Product
+          </h3>
           <input
             type="text"
             name="name"
@@ -161,71 +224,102 @@ function AdminDashboard() {
           /> */}
           <input
             type="text"
-            name="des"
-            value={newProduct.des}
+            name="description"
+            value={newProduct.description}
             onChange={handleProductChange}
-            placeholder="description"
+            placeholder="Description"
             className="block mb-2 p-2 border rounded w-full"
           />
-          <button onClick={handleCreateProduct} className="bg-green-500 text-white p-2 rounded w-full">Create Product</button>
+          <button
+            onClick={handleCreateProduct}
+            className="bg-green-500 text-white p-2 rounded w-full"
+          >
+            Create Product
+          </button>
         </div>
 
-        {/* Edit Product Form */}
-        {editingProduct && (
-          <div className="edit-product mb-8">
-            <h3 className="text-2xl font-bold mb-4 text-green-600">Edit Product</h3>
-            <input
-              type="text"
-              name="name"
-              value={editingProduct.name}
-              onChange={(e) => setEditingProduct({ ...editingProduct, name: e.target.value })}
-              placeholder="Product Name"
-              className="block mb-2 p-2 border rounded w-full"
-            />
-            <input
-              type="number"
-              name="price"
-              value={editingProduct.price}
-              onChange={(e) => setEditingProduct({ ...editingProduct, price: e.target.value })}
-              placeholder="Product Price"
-              className="block mb-2 p-2 border rounded w-full"
-            />
-            <input
-              type="text"
-              name="des"
-              value={editingProduct.des}
-              onChange={(e) => setEditingProduct({ ...editingProduct, des: e.target.value })}
-              placeholder="Image URL"
-              className="block mb-2 p-2 border rounded w-full"
-            />
-            {/* <input
-              type="text"
-              name="imageUrl"
-              value={editingProduct.imageUrl}
-              onChange={(e) => setEditingProduct({ ...editingProduct, imageUrl: e.target.value })}
-              placeholder="Image URL"
-              className="block mb-2 p-2 border rounded w-full"
-            /> */}
-            <button onClick={handleUpdateProduct} className="bg-green-500 text-white p-2 rounded w-full">Update Product</button>
-            <button onClick={() => setEditingProduct(null)} className="bg-red-500 text-white p-2 rounded w-full mt-2">Cancel</button>
-          </div>
-        )}
+        {/* Edit Product Modal */}
+        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+          <h3 className="text-2xl font-bold mb-4 text-green-600">
+            Edit Product
+          </h3>
+          <input
+            type="text"
+            name="name"
+            value={editingProduct?.name || ""}
+            onChange={(e) =>
+              setEditingProduct({ ...editingProduct, name: e.target.value })
+            }
+            placeholder="Product Name"
+            className="block mb-2 p-2 border rounded w-full"
+          />
+          <input
+            type="number"
+            name="price"
+            value={editingProduct?.price || ""}
+            onChange={(e) =>
+              setEditingProduct({ ...editingProduct, price: e.target.value })
+            }
+            placeholder="Product Price"
+            className="block mb-2 p-2 border rounded w-full"
+          />
+          <input
+            type="text"
+            name="description"
+            value={editingProduct?.description || ""}
+            onChange={(e) =>
+              setEditingProduct({
+                ...editingProduct,
+                description: e.target.value,
+              })
+            }
+            placeholder="Description"
+            className="block mb-2 p-2 border rounded w-full"
+          />
+          <button
+            onClick={handleUpdateProduct}
+            className="bg-green-500 text-white p-2 rounded w-full"
+          >
+            Update Product
+          </button>
+        </Modal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map(product => (
-            <div key={product._id} className="product-card bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+        {/* Product List */}
+        <div className="product-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {products.map((product) => (
+            <div
+              key={product._id}
+              className="product-card bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
+            >
               <div className="mb-4">
-                <img
+                {/* <img
                   src={product.imageUrl || 'https://via.placeholder.com/150'}
                   alt={product.name}
                   className="w-full h-40 object-cover rounded-lg"
-                />
+                /> */}
               </div>
-              <h3 className="font-semibold text-lg mb-2 text-green-600">{product.name}</h3>
-              <p className="text-gray-700 mb-1">Price:- ${product.price}</p>
-              <p className="text-gray-700 mb-1">Description:- {product.description}</p>
-              <button onClick={() => handleEditProduct(product)} className="bg-blue-500 text-white p-2 rounded w-full mb-2">Edit</button>
-              <button onClick={() => handleDeleteProduct(product._id)} className="bg-red-500 text-white p-2 rounded w-full">Delete</button>
+              <h3 className="font-semibold text-lg mb-2 text-green-600">
+                {product.name}
+              </h3>
+              <p className="mb-1">
+                <span className="font-semibold">Price:</span> ${product.price}
+              </p>
+              <p className="mb-1">
+                <span className="font-semibold">Description:</span>{" "}
+                {product.description}
+              </p>
+              <button
+                onClick={() => handleEditProduct(product)}
+                className="bg-blue-500 text-white p-2 rounded w-full mt-2"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => handleDeleteProduct(product._id)}
+                className="bg-red-500 text-white p-2 rounded w-full mt-2"
+              >
+                Delete
+              </button>
             </div>
           ))}
         </div>

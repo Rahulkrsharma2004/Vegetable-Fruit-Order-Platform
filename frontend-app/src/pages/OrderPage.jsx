@@ -5,9 +5,7 @@ import OrderTracking from '../components/OrderTracking';
 function OrderPage() {
   return (
     <div>
-      {/* <h1>Place Order</h1> */}
       <OrderForm />
-      {/* <h1>Track Your Order</h1> */}
       <OrderTracking />
     </div>
   );

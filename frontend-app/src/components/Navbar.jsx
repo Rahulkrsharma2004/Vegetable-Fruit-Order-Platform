@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import logo from "../../public/grocery-illustration-download-in-svg-png-gif-file-formats--shopping-food-store-pack-drink-illustrations-7328923.webp";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from "react-toastify";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,13 +11,15 @@ function Navbar() {
   const { isAdminLoggedIn, setIsAdminLoggedIn } = useContext(AuthContext);
 
   const handleAdminLogin = () => {
-    // setIsAdminLoggedIn(true);
-    navigate("/login");
+    navigate("/admin-login");
   };
 
   const handleLogout = () => {
     setIsAdminLoggedIn(false);
+    alert("Logout Successfully")
+    localStorage.removeItem('isAdminLoggedIn');
     navigate("/");
+    // toast.success("Logout Successfull")
   };
 
   const toggleMenu = () => {
@@ -24,6 +28,7 @@ function Navbar() {
 
   return (
     <nav className="bg-gradient-to-r from-green-400 via-yellow-500 to-red-500 p-4 shadow-lg sticky top-0 z-50">
+      <ToastContainer/>
       <div className="mx-auto flex justify-between items-center">
         <div className="text-white text-3xl font-extrabold flex items-center space-x-2">
           <img src={logo} alt="Logo" className="w-10 h-10 rounded-full" />
