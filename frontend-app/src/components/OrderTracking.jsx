@@ -32,7 +32,7 @@ function OrderTracking() {
               /> */}
             </div>
             <h3 className="text-xl font-bold mb-2 text-green-600">Order ID: {order._id}</h3>
-            {/* <p className="text-gray-700 mb-1"><strong>Product:</strong> {order.name}</p> */}
+            {/* <p className="text-gray-700 mb-1"><strong>Product:</strong> {order}</p> */}
             <p className="text-gray-700 mb-1"><strong>Quantity:</strong> {order.quantity}</p>
             <p className="text-gray-700 mb-1"><strong>Status:</strong> {order.status}</p>
             <p className="text-gray-700"><strong>Delivery Address:</strong> {order.deliveryAddress}</p>

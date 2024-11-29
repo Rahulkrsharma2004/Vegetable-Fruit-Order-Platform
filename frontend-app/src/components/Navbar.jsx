@@ -8,12 +8,12 @@ import { toast, ToastContainer } from "react-toastify";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-  const { isAdminLoggedIn, setIsAdminLoggedIn } = useContext(AuthContext);
+  const { isAdminLoggedIn, setIsAdminLoggedIn , admin} = useContext(AuthContext);
 
   const handleAdminLogin = () => {
     navigate("/admin-login");
   };
-
+ console.log("navbar",admin)
   const handleLogout = () => {
     setIsAdminLoggedIn(false);
     alert("Logout Successfully")
@@ -69,7 +69,7 @@ function Navbar() {
             >
               Admin Logout
             </button>
-            <h2 className="text-green-300  text-xl font-medium">Admin</h2>
+            <h2 className="text-green-300  text-xl font-medium">{admin}</h2>
             </>
           ) : (
             <button
@@ -109,12 +109,12 @@ function Navbar() {
       <div className={`md:hidden ${isOpen ? "block" : "hidden"}`}>
       {!isAdminLoggedIn ? (
             <>
-              <Link
+              {/* <Link
                 to="/"
                 className="text-white hover:text-gray-200 text-xl font-medium"
               >
                 Home
-              </Link>
+              </Link> */}
               <Link
                 to="/order"
                 className="text-white hover:text-gray-200 text-xl font-medium"
@@ -139,7 +139,7 @@ function Navbar() {
             >
               Admin Logout
             </button>
-            <h2 className="text-blue-900  text-xl font-medium mx-2">Admin</h2>
+            <h2 className="text-blue-900  text-xl font-medium mx-2">{admin}</h2>
             </>
           ) : (
             <button
