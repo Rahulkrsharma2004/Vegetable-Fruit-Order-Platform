@@ -19,7 +19,7 @@ function AllRoutes() {
           <Route path="/admin-login" element={<AdminLogin />}></Route>
           <Route path="/admin-register" element={<AdminRegister />}></Route>
           <Route path="/order" element={<OrderPage />}></Route>
-          <Route path="/admin" element={<AdminDashboard />}></Route>
+          <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
         </Routes>
       </div>
   );

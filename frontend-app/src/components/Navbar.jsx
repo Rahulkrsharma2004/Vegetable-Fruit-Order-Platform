@@ -49,7 +49,7 @@ function Navbar() {
                 to="/order"
                 className="text-white hover:text-gray-200 text-xl font-medium"
               >
-                Order
+                MyOrder
               </Link>
             </>
           ) : (
@@ -58,7 +58,7 @@ function Navbar() {
           {isAdminLoggedIn ? (
             <>
             <Link
-                to="/admin"
+                to="/admin-dashboard"
                 className="text-white hover:text-gray-200 text-xl font-medium"
               >
                 Dashboard
@@ -107,33 +107,48 @@ function Navbar() {
 
       {/* Mobile Menu */}
       <div className={`md:hidden ${isOpen ? "block" : "hidden"}`}>
-        <Link
-          to="/"
-          className="block text-white hover:text-gray-200 p-3 text-xl"
-        >
-          Home
-        </Link>
-        <Link
-          to="/order"
-          className="block text-white hover:text-gray-200 p-3 text-xl"
-        >
-          Order
-        </Link>
-        {isAdminLoggedIn ? (
-          <button
-            onClick={handleLogout}
-            className="bg-red-600 text-white hover:bg-red-700 px-4 py-2 rounded text-xl font-medium transition duration-300 ease-in-out"
-          >
-            Admin Logout
-          </button>
-        ) : (
-          <button
-            onClick={handleAdminLogin}
-            className="bg-green-600 text-white hover:bg-green-700 px-4 py-2 rounded text-xl font-medium transition duration-300 ease-in-out"
-          >
-            Admin Login
-          </button>
-        )}
+      {!isAdminLoggedIn ? (
+            <>
+              <Link
+                to="/"
+                className="text-white hover:text-gray-200 text-xl font-medium"
+              >
+                Home
+              </Link>
+              <Link
+                to="/order"
+                className="text-white hover:text-gray-200 text-xl font-medium"
+              >
+                MyOrder
+              </Link>
+            </>
+          ) : (
+            null
+          )}
+          {isAdminLoggedIn ? (
+            <>
+            <Link
+                to="/admin-dashboard"
+                className="text-white hover:text-gray-200 text-xl font-medium mx-2"
+              >
+                Dashboard
+              </Link>
+            <button
+              onClick={handleLogout}
+              className="bg-red-600 text-white hover:bg-red-700 px-4 py-2 rounded text-xl font-medium transition duration-300 ease-in-out"
+            >
+              Admin Logout
+            </button>
+            <h2 className="text-blue-900  text-xl font-medium mx-2">Admin</h2>
+            </>
+          ) : (
+            <button
+              onClick={handleAdminLogin}
+              className="bg-green-600 text-white hover:bg-green-700 px-4 py-2 rounded text-xl font-medium transition duration-300 ease-in-out"
+            >
+              Admin Login
+            </button>
+          )}
       </div>
     </nav>
   );

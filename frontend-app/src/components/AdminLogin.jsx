@@ -23,7 +23,7 @@ const AdminLogin = () => {
         setIsAdminLoggedIn(true);
         // localStorage.setItem('adminToken', response.data.token);
         localStorage.setItem('isAdminLoggedIn', 'true');
-        navigate('/admin');
+        navigate('/admin-dashboard');
         alert("Login successfully")
         // toast.success('Login successful');
       } else {

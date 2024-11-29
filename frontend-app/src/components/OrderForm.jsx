@@ -155,7 +155,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function OrderForm() {
   const { productId } = useParams(); // Get the productId from URL params
@@ -167,6 +167,7 @@ function OrderForm() {
     deliveryAddress: '',
   });
   const [product, setProduct] = useState(null);
+  const navigate = useNavigate()
 
   useEffect(() => {
     // Fetch the product details to prefill the product name and check stock
@@ -195,17 +196,21 @@ function OrderForm() {
       return;
     }
 
-    axios.post('https://veg-order-platform.vercel.app/orders', {
+    axios.post('https://veg-order-platform.vercel.app/orders/post', {
       ...order,
       productId
     })
       .then(response => {
-        toast.success('Order placed successfully!');
         setProduct(prevProduct => ({
           ...prevProduct,
           stock: prevProduct.stock - order.quantity
         }));
-        // Add logic to redirect to home page if necessary
+        console.log(response)
+        if(response.data.message === 'Order placed successfully'){
+          // toast.success('Order placed successfully!');
+          alert('Order placed successfully!');
+          navigate("/")
+        }
       })
       .catch(error => {
         toast.error('There was an error placing the order!');
