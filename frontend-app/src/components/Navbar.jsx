@@ -56,12 +56,21 @@ function Navbar() {
             null
           )}
           {isAdminLoggedIn ? (
+            <>
+            <Link
+                to="/admin"
+                className="text-white hover:text-gray-200 text-xl font-medium"
+              >
+                Dashboard
+              </Link>
             <button
               onClick={handleLogout}
               className="bg-red-600 text-white hover:bg-red-700 px-4 py-2 rounded text-xl font-medium transition duration-300 ease-in-out"
             >
               Admin Logout
             </button>
+            <h2 className="text-green-300  text-xl font-medium">Admin</h2>
+            </>
           ) : (
             <button
               onClick={handleAdminLogin}
