@@ -10,9 +10,8 @@ function AdminDashboard() {
   const [newProduct, setNewProduct] = useState({
     name: "",
     price: "",
-    stock:"",
+    stock: "",
     description: "",
-
   });
   const [editingProduct, setEditingProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -77,7 +76,7 @@ function AdminDashboard() {
       .then((response) => {
         setProducts([...products, response.data]);
         toast.success("Product created successfully!");
-        setNewProduct({ name: "", price: "", stock: "" , description: "" });
+        setNewProduct({ name: "", price: "", stock: "", description: "" });
       })
       .catch((error) => {
         console.error("There was an error creating the product!", error);
@@ -100,12 +99,10 @@ function AdminDashboard() {
       toast.error("Please fill in all fields");
       return;
     }
-    console.log(editingProduct._id);
 
     axios
       .put(
-        `https://veg-order-platform.vercel.app/products/${editingProduct._id}`,
-        {},
+        `https://veg-order-platform.vercel.app/products/update/${editingProduct._id}`,
         editingProduct
       )
       .then((response) => {
@@ -115,12 +112,8 @@ function AdminDashboard() {
           )
         );
         toast.success("Product updated successfully!");
-        setEditingProduct( products.map((product) =>
-          product._id === editingProduct._id ? response.data : product
-        ));
         setIsModalOpen(false);
       })
-
       .catch((error) => {
         console.error("There was an error updating the product!", error);
         toast.error("Failed to update product!");
@@ -244,82 +237,19 @@ function AdminDashboard() {
           />
           <button
             onClick={handleCreateProduct}
-            className="bg-green-500 text-white p-2 rounded w-full"
+            className="bg-green-700 text-white py-2 px-4 rounded hover:bg-green-600 transition-all duration-300"
           >
             Create Product
           </button>
         </div>
 
-        {/* Edit Product Modal */}
-        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-          <h3 className="text-2xl font-bold mb-4 text-green-600">
-            Edit Product
-          </h3>
-          <input
-            type="text"
-            name="name"
-            value={editingProduct?.name || ""}
-            onChange={(e) =>
-              setEditingProduct({ ...editingProduct, name: e.target.value })
-            }
-            placeholder="Product Name"
-            className="block mb-2 p-2 border rounded w-full"
-          />
-          <input
-            type="number"
-            name="price"
-            value={editingProduct?.price || ""}
-            onChange={(e) =>
-              setEditingProduct({ ...editingProduct, price: e.target.value })
-            }
-            placeholder="Product Price"
-            className="block mb-2 p-2 border rounded w-full"
-          />
-          <input
-            type="number"
-            name="stock"
-            value={editingProduct?.stock || ""}
-            onChange={(e) =>
-              setEditingProduct({ ...editingProduct, stock: e.target.value })
-            }
-            placeholder="Product quantity"
-            className="block mb-2 p-2 border rounded w-full"
-          />
-          <input
-            type="text"
-            name="description"
-            value={editingProduct?.description || ""}
-            onChange={(e) =>
-              setEditingProduct({
-                ...editingProduct,
-                description: e.target.value,
-              })
-            }
-            placeholder="Description"
-            className="block mb-2 p-2 border rounded w-full"
-          />
-          <button
-            onClick={handleUpdateProduct}
-            className="bg-green-500 text-white p-2 rounded w-full"
-          >
-            Update Product
-          </button>
-        </Modal>
-
         {/* Product List */}
-        <div className="product-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product) => (
             <div
               key={product._id}
               className="product-card bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
             >
-              <div className="mb-4">
-                {/* <img
-                  src={product.imageUrl || 'https://via.placeholder.com/150'}
-                  alt={product.name}
-                  className="w-full h-40 object-cover rounded-lg"
-                /> */}
-              </div>
               <h3 className="font-semibold text-lg mb-2 text-green-600">
                 {product.name}
               </h3>
@@ -327,28 +257,92 @@ function AdminDashboard() {
                 <span className="font-semibold">Price:</span> ${product.price}
               </p>
               <p className="mb-1">
-                <span className="font-semibold">Quantity:</span> {product.stock}
+                <span className="font-semibold">Stock:</span> {product.stock}
               </p>
               <p className="mb-1">
                 <span className="font-semibold">Description:</span>{" "}
                 {product.description}
               </p>
-              <button
-                onClick={() => handleEditProduct(product)}
-                className="bg-blue-500 text-white p-2 rounded w-full mt-2"
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => handleDeleteProduct(product._id)}
-                className="bg-red-500 text-white p-2 rounded w-full mt-2"
-              >
-                Delete
-              </button>
+              <div className="flex justify-between mt-4">
+                <button
+                  onClick={() => handleEditProduct(product)}
+                  className="bg-blue-700 text-white py-1 px-3 rounded hover:bg-blue-600 transition-all duration-300"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDeleteProduct(product._id)}
+                  className="bg-red-700 text-white py-1 px-3 rounded hover:bg-red-600 transition-all duration-300"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Edit Product Modal */}
+      {isModalOpen && editingProduct && (
+        <Modal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSave={handleUpdateProduct}
+        >
+          <div className="edit-product">
+            <h3 className="text-2xl font-bold mb-4">Edit Product</h3>
+            <input
+              type="text"
+              name="name"
+              value={editingProduct.name}
+              onChange={(e) =>
+                setEditingProduct({ ...editingProduct, name: e.target.value })
+              }
+              placeholder="Product Name"
+              className="block mb-2 p-2 border rounded w-full"
+            />
+            <input
+              type="number"
+              name="price"
+              value={editingProduct.price}
+              onChange={(e) =>
+                setEditingProduct({ ...editingProduct, price: e.target.value })
+              }
+              placeholder="Product Price"
+              className="block mb-2 p-2 border rounded w-full"
+            />
+            <input
+              type="number"
+              name="stock"
+              value={editingProduct.stock}
+              onChange={(e) =>
+                setEditingProduct({ ...editingProduct, stock: e.target.value })
+              }
+              placeholder="Product quantity"
+              className="block mb-2 p-2 border rounded w-full"
+            />
+            <input
+              type="text"
+              name="description"
+              value={editingProduct.description}
+              onChange={(e) =>
+                setEditingProduct({
+                  ...editingProduct,
+                  description: e.target.value,
+                })
+              }
+              placeholder="Description"
+              className="block mb-2 p-2 border rounded w-full"
+            />
+            <button
+            onClick={handleUpdateProduct}
+            className="bg-green-500 text-white p-2 rounded w-full"
+          >
+            Update Product
+          </button>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 }
