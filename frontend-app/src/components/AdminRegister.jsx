@@ -39,7 +39,7 @@ const AdminRegister = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-5rem)] bg-gray-100">
       <ToastContainer />
       <h1 className="text-3xl font-bold mb-8">Admin Register</h1>
       <form
