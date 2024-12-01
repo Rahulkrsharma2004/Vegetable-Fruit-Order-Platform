@@ -26,7 +26,7 @@ const AdminRegister = () => {
       console.log(response);
 
       alert("Registration successful!");
-      console.log("register",response.data.adminData.name)
+      console.log("register", response.data.adminData.name);
       // toast.success("Registration successful!");
       navigate("/admin-login");
     } catch (error) {
@@ -42,49 +42,56 @@ const AdminRegister = () => {
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-5rem)] bg-gray-100">
       <ToastContainer />
       <h1 className="text-3xl font-bold mb-8">Admin Register</h1>
-      <form
-        onSubmit={handleRegister}
-        className="bg-white p-6 rounded shadow-md w-80"
-      >
-        <input
-          type="text"
-          className="border p-2 mb-4 w-full"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
+      <div className="flex flex-col rounded  md:flex-row items-center space-x-0 md:space-x-6 space-y-6 md:space-y-0 shadow-md">
+        <img
+          src="https://cdni.iconscout.com/illustration/premium/thumb/sign-up-4922762-4097209.png"
+          alt="Login illustration"
+          className="w-72 h-auto"
         />
-        <input
-          type="email"
-          className="border p-2 mb-4 w-full"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          className="border p-2 mb-4 w-full"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button
-          type="submit"
-          className="px-4 py-2 bg-green-500 text-white rounded w-full hover:bg-green-700"
+        <form
+          onSubmit={handleRegister}
+          className="p-6 rounded w-80"
         >
-          Register
-        </button>
-        <div className="mt-4 text-center">
-          <p>
-            already register ? {" "}
-            <Link to="/admin-login" className="text-blue-500 hover:underline">
-              Login
-            </Link>
-          </p>
-        </div>
-      </form>
+          <input
+            type="text"
+            className="border p-2 mb-4 w-full"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <input
+            type="email"
+            className="border p-2 mb-4 w-full"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            className="border p-2 mb-4 w-full"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button
+            type="submit"
+            className="px-4 py-2 bg-green-500 text-white rounded w-full hover:bg-green-700"
+          >
+            Register
+          </button>
+          <div className="mt-4 text-center">
+            <p>
+              already register ?{" "}
+              <Link to="/admin-login" className="text-blue-500 hover:underline">
+                Login
+              </Link>
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
