@@ -65,12 +65,12 @@ function OrderForm() {
   };
 
   return (
-    <div className="bg-gradient-to-r from-green-400 via-yellow-300 to-red-400 min-h-screen flex items-center justify-center py-10">
+    <div className="bg-gradient-to-r from-green-400 via-yellow-300 to-red-400 flex items-center justify-center py-1">
       <ToastContainer />
-      <div className="w-full max-w-lg bg-white shadow-lg rounded-lg p-6 md:p-8">
+      <div className="w-full max-w-lg bg-white shadow-lg rounded-lg p-1 md:p-5">
         <h2 className="text-3xl font-bold text-center text-green-700 mb-6">Place Your Order</h2>
         <form className="space-y-6" onSubmit={handleSubmit}>
-          <div className="mb-4">
+          <div className="mb-1">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="product">
               Product (e.g., Apple, Carrot, Banana)
             </label>

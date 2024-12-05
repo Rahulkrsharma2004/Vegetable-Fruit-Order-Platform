@@ -23,7 +23,7 @@ const AdminLogin = () => {
       );
       console.log(response);
       if (response.data.message === "Admin login successful") {
-        let firstName = response.data.adminData.name.split(" ")[0];
+        let firstName = response.data.adminData.name.charAt(0).toUpperCase();
         setIsAdminLoggedIn(true);
         setAdmin(firstName);
         localStorage.setItem("isAdminLoggedIn", "true");
