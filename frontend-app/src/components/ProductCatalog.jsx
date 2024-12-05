@@ -37,8 +37,8 @@ function ProductCatalog() {
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
         {loading && (
           <div className="flex justify-center items-center h-screen w-full absolute top-0 left-0">
-            {/* <h1 className="text-5xl">Loading...</h1> */}
             <img src="https://cdn.pixabay.com/animation/2024/07/27/09/34/09-34-07-906_512.gif" alt="" />
+            {/* <h1 className="text-5xl">Loading...</h1> */}
           </div>
         )}
 
