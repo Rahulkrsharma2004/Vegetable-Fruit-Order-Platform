@@ -6,7 +6,17 @@ This project is a web application designed to facilitate bulk vegetable/fruit or
 
 Create a web application to facilitate bulk vegetable/fruit orders, enabling buyers to browse products, place orders, and track their status, and allowing admins to manage orders and inventory.
 
-## Features
+## Images
+
+<img width="943" alt="pic1" src="https://github.com/user-attachments/assets/6b5b93b4-49ca-4752-8920-f99f0e47853d">
+<img width="943" alt="img2" src="https://github.com/user-attachments/assets/e9f1c665-8044-4685-b798-6ebf2d39c4b5">
+<img width="954" alt="img3" src="https://github.com/user-attachments/assets/d1dfdd4d-2f72-4be3-a689-89cf609633ea">
+<img width="958" alt="img4" src="https://github.com/user-attachments/assets/f6b247fe-47f2-45b5-a420-5c2cc1f06e82">
+<img width="949" alt="img5" src="https://github.com/user-attachments/assets/655209ea-4271-4286-948e-2d95757aa2e0">
+<img width="942" alt="img6" src="https://github.com/user-attachments/assets/a44fd217-bce0-4a82-8356-8fa0cd99f3c3">
+<img width="945" alt="img7" src="https://github.com/user-attachments/assets/2503fa5e-6b0c-4f2d-9e4a-7e4a0bb289f2">
+<img width="945" alt="img8" src="https://github.com/user-attachments/assets/b0843f1b-31fe-47c1-a64c-77104ef145be">
+
 
 ### For Buyers
 
