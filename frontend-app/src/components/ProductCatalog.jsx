@@ -60,7 +60,7 @@ function ProductCatalog() {
                   {product.name}
                 </h3>
                 <p className="text-xl font-bold text-green-800 mb-2">
-                  Rs - {product.price} / kg
+                  Rs - {`${product.price}/${product.name.toLowerCase() === "banana" ? "dozen" : "kg"}`}
                 </p>
                 <p
                   className={`text-xl mb-2 ${
