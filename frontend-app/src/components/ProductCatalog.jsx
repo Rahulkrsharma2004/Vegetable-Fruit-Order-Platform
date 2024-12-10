@@ -60,7 +60,7 @@ function ProductCatalog() {
                   {product.name}
                 </h3>
                 <p className="text-xl font-bold text-green-800 mb-2">
-                  ${product.price}
+                  Rs - {product.price} / kg
                 </p>
                 <p
                   className={`text-xl mb-2 ${
